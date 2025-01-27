@@ -1,32 +1,98 @@
-# Coding Interview: Rock Paper Scissors
+# Rock, Paper, Scissors Game
 
-## The Task
+## Description
 
-Write a program that plays multiple rounds of Rock, Paper, Scissors (https://en.wikipedia.org/wiki/Rock-paper-scissors) and shows the final results of the game.The code should at least provide the minimal functional requirements listed below, have high test coverage and adhere to common clean code rules. 
+This is a simple implementation of the classic game **Rock, Paper, Scissors**, where:
 
-KEEP IT SIMPLE - remember: we're not looking for a full-blown business application, but a basis for discussion and further development. A simple text output for the result will do.
+- Player A always plays **Rock**.
+- Player B plays randomly, either **Rock**, **Paper**, or **Scissors**.
 
-Minimal functional requirements:
-* One player should always play randomly, the other should always choose rock. No user interaction should be required (i.e. no reading from stdin and waiting for a user interaction)
-* The application should play 100 rounds of the game
-* The application should evaluate the game logic, i.e. the result (e.g. WIN, DRAW, LOSE) of two actions (e.g. ROCK, PAPER, SCISSOR) competing against each other
-* The application should calculate at least the number of wins for each player and the number of draws.
- 
+The game is played for a total of **100 rounds**. After each round, the result is evaluated as one of the following:
+- **WIN**: Player A wins the round.
+- **LOSE**: Player B wins the round.
+- **DRAW**: Both players play the same move, resulting in a draw.
 
-## Technical requirements
+The program keeps track of the number of wins for each player and the number of draws. At the end of the 100 rounds, the results are displayed.
 
-Language: Kotlin, tests in a language and with a framework of your choice
-Approach: ideally "test-driven
-Build files (e.g. for Gradle or Maven) should be included in the project
- 
-[Fork this repository](https://github.com/cocharge/coding-interview/fork) and push changes to your forked personal repository.
+### Game Rules
+- **Rock** beats **Scissors**.
+- **Scissors** beats **Paper**.
+- **Paper** beats **Rock**.
+- If both players make the same move, it's a **Draw**.
 
-The output of the program should be like the following:
+## Features
 
+1. **Game Logic**:
+    - The game logic is encapsulated in the `Game` class, which determines the outcome of each round.
+
+2. **Random Player B**:
+    - Player B's moves are selected randomly using a random number generator.
+
+3. **Rock Player A**:
+    - Player A always chooses **Rock**.
+
+4. **Round Evaluation**:
+    - The result of each round (win, loss, or draw) is determined by comparing Player A’s move (always **Rock**) with Player B's randomly chosen move.
+
+5. **Final Results**:
+    - After all 100 rounds, the program outputs the number of wins for each player and the total number of draws.
+
+6. **Reproducibility**:
+    - A fixed random generator is used during tests to ensure consistent results across runs. This is important for testing scenarios like large rounds or edge cases.
+
+## Code Overview
+
+### Classes and Enums
+
+1. **Move Enum**:
+    - The `Move` enum defines the possible moves for the players: **ROCK**, **PAPER**, and **SCISSORS**.
+    - The `getRandomMove()` method is used to randomly select a move for Player B.
+
+2. **Result Enum**:
+    - The `Result` enum represents the possible outcomes of a round: **WIN**, **LOSE**, and **DRAW**.
+
+3. **Game Class**:
+    - The `Game` class contains the main logic for evaluating the round results.
+    - The `play()` method compares the moves of Player A and Player B to determine the result of the round.
+
+4. **Main Class**:
+    - The `Main` class runs the game for 100 rounds and tracks the number of wins and draws for both players.
+    - After all rounds are played, the final results are printed.
+
+### Randomness Control for Testing
+
+In the `Move` enum, the randomness can be controlled by setting a fixed `Random` object using the `setRandom()` method. This allows for reproducible tests, which is useful when testing edge cases or large numbers of rounds.
+
+```java
+public static void setRandom(Random newRandom) {
+    random = newRandom;
+}
 ```
-"Player A wins 31 of 100 games"
-"Player B wins 37 of 100 games"
-"Draws: 32 of 100 games"
-```
+How to Run
 
-Good luck!
+Clone the repository:
+
+
+git clone <repository-url>
+
+Build the project:
+
+mvn clean install
+
+Run the main class:
+
+mvn exec:java -Dexec.mainClass="org.example.Main"
+
+Run tests:
+
+mvn test
+
+Conclusion
+This is a simple implementation of Rock, Paper, Scissors with a fixed player (Player A always plays Rock) and a random player (Player B chooses randomly). It includes basic game logic, test coverage, and handles edge cases like 0 rounds and large numbers of rounds. The code is designed to be simple, yet easily extendable and testable.
+
+
+
+
+
+
+
